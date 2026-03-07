@@ -30,17 +30,4 @@ Before using the Nuke CatFileCreator, you must generate the PyTorch `.pt` file l
 ```powershell
 mamba run --prefix ./nuke17_ml_env python src/build_da3_small.py
 ```
-*The script handles the 14-pixel padding logic required for Vision Transformer (ViT) patch compatibility.*
 
-## Git LFS Initialization
-Binary assets and compiled `.cat` Nuke node configurations are managed via Git LFS to ensure repository performance.
-
-```powershell
-git init
-git lfs install
-git lfs track "*.cat"
-git add .gitattributes
-```
-
-> [!NOTE]
-> Intermediate `.pt` files are excluded from the repository via `.gitignore` to optimize bandwidth and LFS storage quota.
