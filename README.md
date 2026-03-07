@@ -19,6 +19,10 @@ mamba install --prefix D:\Nuke_Scripts\nuke17_ml_env huggingface_hub timm -c con
 pip install transformers
 ```
 
+> [!TIP]
+> Alternatively, you can install all required dependencies using the provided manifest:
+> `pip install -r requirements.txt`
+
 ## Git LFS Initialization
 For storing compiled `.cat` Nuke node configurations locally:
 
