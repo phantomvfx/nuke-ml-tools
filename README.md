@@ -5,23 +5,17 @@ This repository contains the  port of the **Depth Anything 3 (Small)** Vision Tr
 
 ## Setup Instructions
 
-This implementation utilizes an isolated Mamba environment
+This implementation is purpose-built for **Nuke 17**, which utilizes **Python 3.11** and **Torch 2.2**. This environment ensures native compatibility with Nuke's internal specifications.
+
+### Quick Start
 
 ```powershell
-# 1. Create the isolated environment for Python 3.11 required by PyTorch 2.2
-mamba create --prefix D:\Nuke_Scripts\nuke17_ml_env python=3.11 -y
+# 1. Create the isolated environment
+mamba create --prefix ./nuke17_ml_env python=3.11 -y
 
-# 2. Install the Torch CPU inference backend to match Nuke 17's internal specs
-mamba install --prefix D:\Nuke_Scripts\nuke17_ml_env pytorch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 cpuonly -c pytorch -y
-
-# 3. Install integration libraries
-mamba install --prefix D:\Nuke_Scripts\nuke17_ml_env huggingface_hub timm -c conda-forge -y
-pip install transformers
+# 2. Install all dependencies via the manifest
+mamba run --prefix ./nuke17_ml_env pip install -r requirements.txt
 ```
-
-> [!TIP]
-> Alternatively, you can install all required dependencies using the provided manifest:
-> `pip install -r requirements.txt`
 
 ## Git LFS Initialization
 For storing compiled `.cat` Nuke node configurations locally:
