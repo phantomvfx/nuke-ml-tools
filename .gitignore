@@ -3,3 +3,6 @@ weights/
 L:/
 *.log
 .antigravity/
+
+pt_exports/*.pt
+cat_models/*.cat~

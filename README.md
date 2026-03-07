@@ -20,11 +20,21 @@ pip install transformers
 ```
 
 ## Git LFS Initialization
-For storing compiled `.pt` execution graphs and `.cat` Nuke node configurations locally:
+For storing compiled `.cat` Nuke node configurations locally:
 
 ```powershell
 git init
 git lfs install
-git lfs track "*.pt" "*.cat"
+git lfs track "*.cat"
 git add .gitattributes
+```
+
+*Note: `.pt` files are no longer hosted in the repository to optimize bandwidth and LFS usage.*
+
+## Build Instructions
+
+Before using the Nuke CatFileCreator, you must generate the PyTorch `.pt` file locally. Run the following command:
+
+```powershell
+python src/build_da3_small.py
 ```
