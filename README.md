@@ -1,7 +1,7 @@
 # Nuke 17 ML: Vision Transformer (DA3) Integration Pipeline
 
 ## Abstract
-This repository contains the successful port of the **Depth Anything 3 (Small)** Vision Transformer model into the Foundry Nuke 17 Machine Learning (ML) inference pipeline. By utilizing a custom PyTorch TorchScript wrapper, this pipeline bridges the gap between state-of-the-art Hugging Face Hub depth estimation architectures and VFX node-graph compositing.
+This repository contains the  port of the **Depth Anything 3 (Small)** Vision Transformer model into the Foundry Nuke 17 Machine Learning (ML) inference pipeline. By utilizing a custom PyTorch TorchScript wrapper.
 
 ## Setup Instructions
 
