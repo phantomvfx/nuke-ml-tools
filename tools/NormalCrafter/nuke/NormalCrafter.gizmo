@@ -1,0 +1,33 @@
+Gizmo {
+ name NormalCrafter
+ tile_color 0xff3355ff
+ label "Video Normal Generation\nMax Res: \[value max_res]"
+ addUserKnob {20 User l NormalCrafter}
+ addUserKnob {3 max_res l "Max Resolution" t "Maximum dimension processing limit."}
+ max_res 1024
+ addUserKnob {3 window_size l "Window Size"}
+ window_size 14
+ addUserKnob {3 decode_chunk_size l "Decode Chunk Size"}
+ decode_chunk_size 7
+ addUserKnob {3 time_step_size l "Time Step Size"}
+ time_step_size 10
+ addUserKnob {26 ""}
+ addUserKnob {22 generate l "<font color='green'><b>Generate Normal Map Sequence</b></font>" T "import normalcrafter_nuke_ui\nimport importlib\nimportlib.reload(normalcrafter_nuke_ui)\nnormalcrafter_nuke_ui.run_generation(nuke.thisNode())" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 0
+  ypos -40
+ }
+ Dot {
+  name Dot1
+  xpos 34
+  ypos 50
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 140
+ }
+end_group
