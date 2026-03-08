@@ -12,7 +12,7 @@ Gizmo {
  addUserKnob {3 time_step_size l "Time Step Size"}
  time_step_size 10
  addUserKnob {26 ""}
- addUserKnob {22 generate l "<font color='green'><b>Generate Normal Map Sequence</b></font>" T "import nuke, os, sys\ngizmo_dir = os.path.dirname(nuke.thisNode().filename())\nif gizmo_dir not in sys.path:\n    sys.path.append(gizmo_dir)\nimport normalcrafter_nuke_ui\nimport importlib\nimportlib.reload(normalcrafter_nuke_ui)\nnormalcrafter_nuke_ui.run_generation(nuke.thisNode())" +STARTLINE}
+ addUserKnob {22 generate l "<font color='green'><b>Generate Normal Map Sequence</b></font>" T "import normalcrafter_nuke_ui\nimport importlib\nimportlib.reload(normalcrafter_nuke_ui)\nnormalcrafter_nuke_ui.run_generation(nuke.thisNode())" +STARTLINE}
 }
  Input {
   inputs 0

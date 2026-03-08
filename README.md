@@ -37,9 +37,13 @@ mamba run --prefix ./nuke17_ml_env python tools/DepthAnything3/src/build_da3_sma
 ## NormalCrafter Usage
 Because NormalCrafter is an iterative video diffusion model, it runs externally rather than through a single CatFile node.
 To use **NormalCrafter**:
-1. Copy `tools/NormalCrafter/nuke/NormalCrafter.gizmo` and `tools/NormalCrafter/nuke/normalcrafter_nuke_ui.py` to your `.nuke` directory or anywhere on your Nuke plugin path (`NUKE_PATH`).
-2. Inside Nuke, create a **NormalCrafter** node and plug in your sequence.
-3. Click **Generate Normal Map Sequence**.
+1. Add the tool to your Nuke plugin path. Open (or create) your `init.py` file in your `~/.nuke` directory and add the following line:
+   ```python
+   nuke.pluginAddPath('D:/Nuke_Scripts/tools/NormalCrafter/nuke')
+   ```
+2. Restart Nuke.
+3. Inside Nuke, create a **NormalCrafter** node and plug in your sequence.
+4. Click **Generate Normal Map Sequence**.
    *This automatically renders the input to a temporary EXR sequence, triggers the ML generation via subprocess using the `nuke17_ml_env`, and creates a Read node containing the temporally stable results once finished.*
 
 ## Git LFS Initialization
