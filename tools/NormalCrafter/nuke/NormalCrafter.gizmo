@@ -12,7 +12,7 @@ Gizmo {
  addUserKnob {3 time_step_size l "Time Step Size"}
  time_step_size 10
  addUserKnob {26 ""}
- addUserKnob {22 generate l "<font color='green'><b>Generate Normal Map Sequence</b></font>" T "import normalcrafter_nuke_ui\nimport importlib\nimportlib.reload(normalcrafter_nuke_ui)\nnormalcrafter_nuke_ui.run_generation(nuke.thisNode())" +STARTLINE}
+ addUserKnob {22 generate l "<font color='green'><b>Generate Normal Map Sequence</b></font>" T "import sys, nuke\nui_path = 'D:/Nuke_Scripts/tools/NormalCrafter/nuke'\nif ui_path not in sys.path:\n    sys.path.append(ui_path)\ntry:\n    import normalcrafter_nuke_ui\n    import importlib\n    importlib.reload(normalcrafter_nuke_ui)\n    normalcrafter_nuke_ui.run_generation(nuke.thisNode())\nexcept Exception as e:\n    nuke.message('Failed to load UI script: ' + str(e))" +STARTLINE}
 }
  Input {
   inputs 0
