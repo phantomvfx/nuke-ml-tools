@@ -138,9 +138,33 @@ def run_generation(gizmo_node):
     read_node['xpos'].setValue(gizmo_node['xpos'].value())
     read_node['ypos'].setValue(gizmo_node['ypos'].value() + 60)
     
+    # Automatically resize back to match the original plate if there was an input
+    final_node = read_node
+    if gizmo_node.input(0):
+        # Create Reformat node
+        reformat_node = nuke.nodes.Reformat()
+        reformat_node.setInput(0, read_node)
+        
+        # Position below Read node
+        reformat_node['xpos'].setValue(read_node['xpos'].value())
+        reformat_node['ypos'].setValue(read_node['ypos'].value() + 50)
+        
+        # Get dimensions of original input
+        orig_w = gizmo_node.input(0).width()
+        orig_h = gizmo_node.input(0).height()
+        
+        # Set Reformat to restore exact original pixel dimensions
+        reformat_node['type'].setValue('to box')
+        reformat_node['box_width'].setValue(orig_w)
+        reformat_node['box_height'].setValue(orig_h)
+        reformat_node['box_fixed'].setValue(True)
+        reformat_node['resize'].setValue('distort') 
+        
+        final_node = reformat_node
+        
     # Select the new node
     for n in nuke.allNodes():
         n.setSelected(False)
-    read_node.setSelected(True)
+    final_node.setSelected(True)
     
     print("NormalCrafter generation completed successfully!")
