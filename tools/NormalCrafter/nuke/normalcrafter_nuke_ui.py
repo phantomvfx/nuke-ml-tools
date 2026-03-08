@@ -29,8 +29,16 @@ def run_generation(gizmo_node):
     except:
         pass
         
-    # Create temp directory
-    temp_dir = os.path.join(tempfile.gettempdir(), "NormalCrafter_Nuke")
+    # Create temp directory in D: as requested
+    base_tmp = "D:/tmp"
+    if not os.path.exists(base_tmp):
+        try:
+            os.makedirs(base_tmp)
+        except Exception:
+            # Fallback if D:/tmp creation fails
+            base_tmp = tempfile.gettempdir()
+            
+    temp_dir = os.path.join(base_tmp, "NormalCrafter_Nuke").replace("\\", "/")
     if not os.path.exists(temp_dir):
         os.makedirs(temp_dir)
         
