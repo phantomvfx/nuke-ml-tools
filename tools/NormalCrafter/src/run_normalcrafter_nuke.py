@@ -8,6 +8,7 @@ import re
 import numpy as np
 import torch
 from PIL import Image
+os.environ["OPENCV_IO_ENABLE_OPENEXR"] = "1"
 import cv2
 
 # Add NormalCrafter to sys.path so we can import its modules
