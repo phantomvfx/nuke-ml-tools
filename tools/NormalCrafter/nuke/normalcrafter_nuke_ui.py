@@ -124,47 +124,55 @@ def run_generation(gizmo_node):
         nuke.message(f"Error running NormalCrafter subprocess: {e}")
         return
         
-    task.setProgress(100)
-    del task
-    
-    # Create Read node for output
-    read_node = nuke.nodes.Read(
-        file=output_pattern,
-        first=first_frame,
-        last=last_frame
-    )
-    
-    # Place it below the current gizmo
-    read_node['xpos'].setValue(gizmo_node['xpos'].value())
-    read_node['ypos'].setValue(gizmo_node['ypos'].value() + 60)
-    
-    # Automatically resize back to match the original plate if there was an input
-    final_node = read_node
-    if gizmo_node.input(0):
-        # Create Reformat node
-        reformat_node = nuke.nodes.Reformat()
-        reformat_node.setInput(0, read_node)
+    try:
+        # Create Read node for output
+        read_node = nuke.nodes.Read(
+            file=output_pattern,
+            first=first_frame,
+            last=last_frame
+        )
         
-        # Position below Read node
-        reformat_node['xpos'].setValue(read_node['xpos'].value())
-        reformat_node['ypos'].setValue(read_node['ypos'].value() + 50)
+        # Place it below the current gizmo
+        read_node['xpos'].setValue(gizmo_node['xpos'].value())
+        read_node['ypos'].setValue(gizmo_node['ypos'].value() + 60)
         
-        # Get dimensions of original input
-        orig_w = gizmo_node.input(0).width()
-        orig_h = gizmo_node.input(0).height()
+        # Automatically resize back to match the original plate if there was an input
+        final_node = read_node
+        if gizmo_node.input(0):
+            # Create Reformat node
+            reformat_node = nuke.nodes.Reformat()
+            reformat_node.setInput(0, read_node)
+            
+            # Position below Read node
+            reformat_node['xpos'].setValue(read_node['xpos'].value())
+            reformat_node['ypos'].setValue(read_node['ypos'].value() + 50)
+            
+            # Get dimensions of original input
+            input_n = gizmo_node.input(0)
+            try:
+                orig_w = input_n.width()
+                orig_h = input_n.height()
+            except Exception as w_e:
+                print("Could not get native width/height via .width(), falling back to format: " + str(w_e))
+                # Fallback
+                fmt = input_n.format()
+                orig_w = fmt.width()
+                orig_h = fmt.height()
+            
+            # Set Reformat to restore exact original pixel dimensions
+            reformat_node['type'].setValue('to box')
+            reformat_node['box_width'].setValue(orig_w)
+            reformat_node['box_height'].setValue(orig_h)
+            reformat_node['box_fixed'].setValue(True)
+            reformat_node['resize'].setValue('distort') 
+            
+            final_node = reformat_node
+            
+        # Select the new node
+        for n in nuke.allNodes():
+            n.setSelected(False)
+        final_node.setSelected(True)
         
-        # Set Reformat to restore exact original pixel dimensions
-        reformat_node['type'].setValue('to box')
-        reformat_node['box_width'].setValue(orig_w)
-        reformat_node['box_height'].setValue(orig_h)
-        reformat_node['box_fixed'].setValue(True)
-        reformat_node['resize'].setValue('distort') 
-        
-        final_node = reformat_node
-        
-    # Select the new node
-    for n in nuke.allNodes():
-        n.setSelected(False)
-    final_node.setSelected(True)
-    
-    print("NormalCrafter generation completed successfully!")
+        print("NormalCrafter generation completed successfully!")
+    except Exception as e:
+        nuke.message(f"Generation finished, but failed to create Read node:\n{e}")
